@@ -117,8 +117,8 @@ while (matchScore.matchValues!==`Match score: Alberto C win the match` && matchS
    if(matchScore.matchFinished===true){
         console.log(matchScore.matchValues)
    } 
-   console.log(game.getWinner())
 }
+    console.log(game.getWinner())
 
 let winner1= game.getMatchScore().matchValues==="Match score: Alberto C win the match" ? "Alberto C" : "David J"
 
@@ -139,11 +139,11 @@ while (matchScore1.matchValues!==`Match score: Javier M win the match` && matchS
    if(matchScore1.matchFinished===true){
         console.log(matchScore1.matchValues)
    } 
-   console.log(game1.getWinner())
 }
+console.log(game.getWinner())
 
 let winner2 = game1.getMatchScore().matchValues==="Match score: Javier M win the match" ? "Javier M" : "Edu Aguilar"
-console.log(winner2)
+
 
 console.log("----------------------------------FINAL MATCH ----------------------------------")
 const gameFinal = createMatch(winner1, winner2) //Final
@@ -162,10 +162,11 @@ while (matchScore2.matchValues!==`Match score: ${winner1} win the match` && matc
    if(matchScore2.matchFinished===true){
         console.log(matchScore2.matchValues)
    } 
-   console.log(gameFinal.getWinner())
 }
+console.log(game.getWinner())
 
 //Código manual para comprobar que funciona correctamente el código antes de utilizar los bucles.
+console.log("----------------------------------Instrucciones manuales para comprobar lógica ----------------------------------")
 game.pointWonBy(1);
 console.log(game.getCurrentRoundScore()); // Alberto C 15-0 David J
 game.pointWonBy(1);
