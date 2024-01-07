@@ -104,7 +104,6 @@ while (matchScore.matchValues!==`Match score: Alberto C win the match` && matchS
     if(roundScoreFinished.roundFinished===true){
         console.log(roundScoreFinished.roundsValues)
     }
-   // console.log(game.getRoundScore()),
    matchScore = game.getMatchScore()
    if(matchScore.matchFinished===true){
         console.log(matchScore.matchValues)
@@ -127,7 +126,6 @@ while (matchScore1.matchValues!==`Match score: Javier M win the match` && matchS
     if(roundScoreFinished.roundFinished===true){
         console.log(roundScoreFinished.roundsValues)
     }
-   // console.log(game1.getRoundScore()),
    matchScore1 = game1.getMatchScore()
    if(matchScore1.matchFinished===true){
         console.log(matchScore1.matchValues)
@@ -150,7 +148,6 @@ while (matchScore2.matchValues!==`Match score: ${winner1} win the match` && matc
     if(roundScoreFinished.roundFinished===true){
         console.log(roundScoreFinished.roundsValues)
     }
-   // console.log(gameFinal.getRoundScore()),
    matchScore2 = gameFinal.getMatchScore()
    if(matchScore2.matchFinished===true){
         console.log(matchScore2.matchValues)
