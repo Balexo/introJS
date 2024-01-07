@@ -1,3 +1,4 @@
+//Leer readme por favor para aclarar el funcionamiento
 function createMatch(p1, p2) {
     let player1={
         p1Points: 0,
@@ -82,11 +83,19 @@ function createMatch(p1, p2) {
 
         return {matchValues, matchFinished}
     }
+
+    const getWinner=() =>{
+        let winner=""
+        winner = player1.p1MatchScore===2 ? `${p1} is the winner` : `${p2} is the winner`
+
+        return winner
+    }
     return {
         pointWonBy: pointWonBy,
         getCurrentRoundScore: getCurrentRoundScore,
         getRoundScore: getRoundScore,
-        getMatchScore: getMatchScore
+        getMatchScore: getMatchScore,
+        getWinner: getWinner
     }
 }
 
@@ -108,10 +117,10 @@ while (matchScore.matchValues!==`Match score: Alberto C win the match` && matchS
    if(matchScore.matchFinished===true){
         console.log(matchScore.matchValues)
    } 
+   console.log(game.getWinner())
 }
 
 let winner1= game.getMatchScore().matchValues==="Match score: Alberto C win the match" ? "Alberto C" : "David J"
-console.log(winner1)
 
 
 console.log("----------------------------------SECOND MATCH ----------------------------------")
@@ -130,6 +139,7 @@ while (matchScore1.matchValues!==`Match score: Javier M win the match` && matchS
    if(matchScore1.matchFinished===true){
         console.log(matchScore1.matchValues)
    } 
+   console.log(game1.getWinner())
 }
 
 let winner2 = game1.getMatchScore().matchValues==="Match score: Javier M win the match" ? "Javier M" : "Edu Aguilar"
@@ -152,9 +162,10 @@ while (matchScore2.matchValues!==`Match score: ${winner1} win the match` && matc
    if(matchScore2.matchFinished===true){
         console.log(matchScore2.matchValues)
    } 
+   console.log(gameFinal.getWinner())
 }
 
-/* Código manual para comprobar que funciona correctamente el código antes de utilizar los bucles.
+//Código manual para comprobar que funciona correctamente el código antes de utilizar los bucles.
 game.pointWonBy(1);
 console.log(game.getCurrentRoundScore()); // Alberto C 15-0 David J
 game.pointWonBy(1);
@@ -180,7 +191,7 @@ game.pointWonBy(2);
 console.log(game.getCurrentRoundScore()); // Alberto C 40-0 David J
 game.pointWonBy(2);
 console.log(game.getCurrentRoundScore()); // Alberto C 1-0 David J
-console.log(game.getRoundScore()) //Alberto C 2 - David J 0
+console.log(game.getRoundScore().roundsValues) //Alberto C 2 - David J 0
 game.pointWonBy(1);
 console.log(game.getCurrentRoundScore()); // Alberto C 15-0 David J
 game.pointWonBy(1);
@@ -248,5 +259,5 @@ game.pointWonBy(1);
 console.log(game.getCurrentRoundScore()); // Alberto C 1-0 David J
 console.log(game.getRoundScore()) //Alberto C 4 - David J 0
 console.log(game.getMatchScore()) //MATCH SCORE Alberto C 1 - David J 0
-*/
+
 
