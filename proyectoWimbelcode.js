@@ -10,11 +10,6 @@ function createMatch(p1, p2) {
         p2MatchScore: 0
     } 
     let points= [0, 15, 30, 40] // Puntos de set
-    let roundResults=[[],[]]
-   
-    //let finishedCurrentRoundScore=false
-    //let finishedGetRoundScore=false
-
 
     const pointWonBy=(value)=>{//La variable value===1 da un punto al jugador1 y la variable 2 al jugardor2
         value===1 ? player1.p1Points++ : player2.p2Points++
@@ -22,7 +17,7 @@ function createMatch(p1, p2) {
     }    
     
     const getCurrentRoundScore=()=>{//Devolvemos el resultado durante el punto. Sumamos un punto en una ronda al jugador que gane el punto
-        let resultValues=""
+        let resultValues="" //Por si queremos comprobar punto a punto la evolución del partido podemos imprirmir esta variable
             
         if(player1.p1Points===3 && player2.p2Points===3){
             resultValues= "Deuce"
@@ -52,20 +47,18 @@ function createMatch(p1, p2) {
 
     const getRoundScore=() =>{//Debe ganar 4 rondas por diferencia de 2
         let roundsValues=""
-        let roundFinished=false
-        if((player1.p1Rounds===7 || player2.p2Rounds === 7) || ((player1.p1Rounds>=4 || player2.p2Rounds >=4) && Math.abs(player1.p1Rounds - player2.p2Rounds)>=2)){ 
-            roundsValues= player1.p1Rounds>player2.p2Rounds ? `${p1} wins: ${player1.p1Rounds}` : `${p2} wins: ${player2.p2Rounds}`
+        let roundFinished=false //Condición para imprimir el resultado
+        if((player1.p1Rounds===7 || player2.p2Rounds === 7) || ((player1.p1Rounds>=4 || player2.p2Rounds >=4) && Math.abs(player1.p1Rounds - player2.p2Rounds)>=2)){ //Condiciones para ganar
+            roundsValues= player1.p1Rounds>player2.p2Rounds ? `${p1} wins: ${player1.p1Rounds} ${p2} ${player2.p2Rounds}` : `${p2} wins: ${player2.p2Rounds} - ${p1} ${player1.p1Rounds}`
             if(player1.p1Rounds>player2.p2Rounds){
-                roundFinished=true
+                roundFinished=true 
                 player1.p1MatchScore++  
-                roundResults.push(roundResults[0]) 
                 player1.p1Rounds=0
                 player2.p2Rounds=0  
 
             }else{
                 roundFinished=true
                 player2.p2MatchScore++  
-                roundResults.push(roundResults[1]) 
                 player1.p1Rounds=0
                 player2.p2Rounds=0
                 
@@ -77,15 +70,17 @@ function createMatch(p1, p2) {
     }    
     
     const getMatchScore=() =>{//Debe de ganar 2 rondas
-        
         let matchValues=""
+        let matchFinished=false //Condición para imprimir el resultado
+
         if(player1.p1MatchScore<2 && player2.p2MatchScore<2){
             matchValues=`Match score: ${p1} ${player1.p1MatchScore} - ${p2} ${player2.p2MatchScore}`
         }else{
-        matchValues = player1.p1MatchScore===2 ? `Match score: ${p1} win the match` : `Match score: ${p2} win the match` 
+            matchFinished=true
+            matchValues = player1.p1MatchScore===2 ? `Match score: ${p1} win the match` : `Match score: ${p2} win the match` 
         }
 
-        return matchValues
+        return {matchValues, matchFinished}
     }
     return {
         pointWonBy: pointWonBy,
@@ -98,42 +93,71 @@ function createMatch(p1, p2) {
 const game = createMatch('Alberto C', 'David J');
 const game1 = createMatch('Javier M', 'Edu Aguilar');
 
-//Revisar se funciona ben un partido
-/*
-while (game.getMatchScore()!==`Match score: Alberto C win the match` && game.getMatchScore()!==`Match score: David J win the match`){
+console.log("----------------------------------FIRST MATCH ----------------------------------")
+let matchScore = game.getMatchScore() //Primer partido
+
+while (matchScore.matchValues!==`Match score: Alberto C win the match` && matchScore.matchValues!==`Match score: David J win the match`){
     let randomPoint=Math.floor(Math.random() * 2) + 1
-    game.pointWonBy(randomPoint),
-    console.log(game.getCurrentRoundScore()),
-    console.log(game.getRoundScore()),
-    console.log(game.getMatchScore())
+    game.pointWonBy(randomPoint)
+    game.getCurrentRoundScore() //Añadir console.log para ver quien gana cada punto en getCurrentRoundScore
+    let roundScoreFinished=game.getRoundScore()
+    if(roundScoreFinished.roundFinished===true){
+        console.log(roundScoreFinished.roundsValues)
+    }
+   // console.log(game.getRoundScore()),
+   matchScore = game.getMatchScore()
+   if(matchScore.matchFinished===true){
+        console.log(matchScore.matchValues)
+   } 
 }
 
-let winner1= game.getMatchScore()==="`Match score: Alberto C win the match`" ? "Alberto C" : "David J"
-*/
-while (game1.getMatchScore()!==`Match score: Javier M win the match` && game1.getMatchScore()!==`Match score: Edu Aguilar win the match`){
+let winner1= game.getMatchScore().matchValues==="Match score: Alberto C win the match" ? "Alberto C" : "David J"
+console.log(winner1)
+
+
+console.log("----------------------------------SECOND MATCH ----------------------------------")
+
+let matchScore1 = game1.getMatchScore() //Segundo partido
+
+while (matchScore1.matchValues!==`Match score: Javier M win the match` && matchScore1.matchValues!==`Match score: Edu Aguilar win the match`){
     let randomPoint=Math.floor(Math.random() * 2) + 1
-    game1.pointWonBy(randomPoint),
-    console.log(game1.getCurrentRoundScore())
-    let RoundScoreFinished=game1.getRoundScore()
-    if(RoundScoreFinished.roundFinished===true){
-        console.log(RoundScoreFinished.roundsValues)
+    game1.pointWonBy(randomPoint)
+    game1.getCurrentRoundScore() //Añadir console.log para ver quien gana cada punto en getCurrentRoundScore
+    let roundScoreFinished=game1.getRoundScore()
+    if(roundScoreFinished.roundFinished===true){
+        console.log(roundScoreFinished.roundsValues)
     }
    // console.log(game1.getRoundScore()),
-    console.log(game1.getMatchScore())
+   matchScore1 = game1.getMatchScore()
+   if(matchScore1.matchFinished===true){
+        console.log(matchScore1.matchValues)
+   } 
 }
-/*
-let winner2 = game.getMatchScore()==="`Match score: Javier M win the match`" ? "Javier M" : "Edu Aguilar"
 
-const gameFinal = createMatch(winner1, winner2);
-while (gameFinal.getMatchScore()!==`Match score: Javier M win the match` && gameFinal.getMatchScore()!==`Match score: Edu Aguilar win the match`){
+let winner2 = game1.getMatchScore().matchValues==="Match score: Javier M win the match" ? "Javier M" : "Edu Aguilar"
+console.log(winner2)
+
+console.log("----------------------------------FINAL MATCH ----------------------------------")
+const gameFinal = createMatch(winner1, winner2) //Final
+
+let matchScore2 = gameFinal.getMatchScore()
+
+while (matchScore2.matchValues!==`Match score: ${winner1} win the match` && matchScore2.matchValues!==`Match score: ${winner2} win the match`){
     let randomPoint=Math.floor(Math.random() * 2) + 1
-    gameFinal.pointWonBy(randomPoint),
-    console.log(gameFinal.getCurrentRoundScore()),
-    console.log(gameFinal.getRoundScore()),
-    console.log(gameFinal.getMatchScore())
+    gameFinal.pointWonBy(randomPoint)
+    gameFinal.getCurrentRoundScore() //Añadir console.log para ver quien gana cada punto en getCurrentRoundScore
+    let roundScoreFinished=gameFinal.getRoundScore()
+    if(roundScoreFinished.roundFinished===true){
+        console.log(roundScoreFinished.roundsValues)
+    }
+   // console.log(gameFinal.getRoundScore()),
+   matchScore2 = gameFinal.getMatchScore()
+   if(matchScore2.matchFinished===true){
+        console.log(matchScore2.matchValues)
+   } 
 }
 
-
+/* Código manual para comprobar que funciona correctamente el código antes de utilizar los bucles.
 game.pointWonBy(1);
 console.log(game.getCurrentRoundScore()); // Alberto C 15-0 David J
 game.pointWonBy(1);
